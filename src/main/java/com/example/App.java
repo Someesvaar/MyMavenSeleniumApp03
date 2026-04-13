@@ -7,21 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class App {
     public static void main(String[] args) throws InterruptedException {
 
-	package com.example;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.time.Duration;
-
-public class App {
-    public static void main(String[] args) {
-
-        // ✅ Headless setup (MANDATORY for Jenkins)
+	// ✅ Headless setup (MANDATORY for Jenkins)
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
@@ -54,7 +40,5 @@ public class App {
         System.out.println("Cart page loaded successfully");
 
         driver.quit();
-    }
-}
     }
 }
