@@ -30,7 +30,7 @@ pipeline {
         stage('Run Application') {
             steps {
                 // Start the JAR application
-                sh 'java -jar target/MyMavenSeleniumApp03.jar'
+                sh 'java -jar target/MyMavenSeleniumApp03-1.0-SNAPSHOT.jar'
             }
         }
 
