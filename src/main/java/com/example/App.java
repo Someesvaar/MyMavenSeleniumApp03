@@ -9,6 +9,31 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
 
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+
+public static void addProduct(WebDriver driver, WebDriverWait wait, String id) {
+
+    By product = By.cssSelector("[data-product-id='" + id + "']");
+    By closeBtn = By.cssSelector(".btn.btn-success.close-modal.btn-block");
+
+    // Wait for product
+    WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(product));
+
+    // Scroll to element
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+
+    // JS click (bypasses overlay issues)
+    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+
+    // Wait for modal and close
+    WebElement close = wait.until(ExpectedConditions.elementToBeClickable(closeBtn));
+    close.click();
+
+    // 🔥 IMPORTANT: wait until modal disappears
+    wait.until(ExpectedConditions.invisibilityOf(close));
+}
+
 public class App {
     public static void main(String[] args) throws InterruptedException {
 
@@ -25,16 +50,13 @@ public class App {
         driver.get("https://automationexercise.com/products");
 
         // Add Product 4
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-product-id='4']"))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-success.close-modal.btn-block"))).click();
+		addProduct(driver, wait, "4");
 
-        // Add Product 5
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-product-id='5']"))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-success.close-modal.btn-block"))).click();
+		// Add Product 5
+		addProduct(driver, wait, "5");
 
-        // Add Product 6
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-product-id='6']"))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-success.close-modal.btn-block"))).click();
+		// Add Product 6
+		addProduct(driver, wait, "6");
 
         // Open Cart Page
         driver.get("https://automationexercise.com/view_cart");
